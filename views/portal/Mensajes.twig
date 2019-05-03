@@ -1,0 +1,84 @@
+{# VARIBLES #}
+{% set footer = true %}
+{% set barraNav = true %}
+{% set notificaciones = false %}
+
+
+{% extends "master.twig" %}
+
+{# ----------------------------------------------------------- #}
+{% block titulo %}Luján Participa{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block body %}
+    <div id="Contenido" style="display: flex; justify-content: center">
+
+    </div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block modals %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+    <script>
+
+                 $(document).ready(function(){
+                    CargarMensajes();//esto hace que se carguen los mensajes
+
+                    $(document).on('click', '#Confirmar',function (e) {
+
+                        var tabla = document.getElementById("tabla");
+
+                        valores = new Array();
+
+
+                        $('#tabla tr.Identificador').each(function () {
+                            if($(this).find('input.checkbox').is(':checked')){
+                                var id = $(this).find('label').eq(0).html();
+                                valor = parseInt(id);
+                                valores.push(valor)
+                            }
+
+                        });
+
+                        console.log(valores);
+                        ConfirmarMensajes(valores);
+
+                    });
+
+
+
+                });
+
+
+                function CargarMensajes(){
+
+                    var Usuario = {{user.id}}
+
+                    $.ajax({
+                    url:'http://ga.lujan.gov.ar/MensajeriaParticipa/BuscarMensajes.php?action=Buscar',
+                    data: { id: Usuario},
+                    type:'post',
+                    success:function(data){
+                      $('#Contenido').html(data);
+                    }
+                    })
+
+                }
+
+                function ConfirmarMensajes(valores){
+
+                    $.ajax({
+                        url:'http://ga.lujan.gov.ar/MensajeriaParticipa/BuscarMensajes.php?action=Confirmar',
+                        type:'post',
+                        data:{valores:valores},
+                        success:function(data){
+                            $('#Contenido').html(data);
+                        }
+                    })
+                }
+    </script>
+{% endblock %}
+{# ----------------------------------------------------------- #}

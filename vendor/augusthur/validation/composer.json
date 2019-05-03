@@ -1,0 +1,19 @@
+{
+	"name": "augusthur/validation",
+	"description": "A simple, extensible validation library for PHP with support for filtering and validating any input array.",
+	"keywords": ["validation", "forms", "services", "models", "rules"],
+	"homepage": "https://github.com/augusthur/PHP-Validation",
+	"license": "MIT",
+	"authors": [{
+		"name": "Luke Lanchester",
+		"email": "luke@lukelanchester.com",
+		"homepage": "http://hybridlogic.co.uk",
+		"role": "Developer"
+	}],
+	"autoload": {
+		"psr-0": {"Augusthur": "."}
+	},
+	"require": {
+		"php": ">=5.3.0"
+	}
+}
